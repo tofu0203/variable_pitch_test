@@ -1,0 +1,2 @@
+# variable_pitch_test
+可変ピッチプロペラの推力測定用プログラム
