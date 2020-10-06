@@ -84,7 +84,6 @@ void loop()
   Serial.print(pitch);
   Serial.print(',');
   Serial.print(servo1_command);
-  ;
   Serial.print(',');
   Serial.print(servo2_command);
   Serial.print(',');
