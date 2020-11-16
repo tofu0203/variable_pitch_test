@@ -5,15 +5,17 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 
 //------lateral_rotor-----
 //lateral brushless motor pin
-const int lateral_brushless_shiledpin = 1;
+const int lateral_brushless_shiledpin = 0;
 //lateral servo motor pin
-const int lateral_servo1_shieldpin = 2;
-const int lateral_servo2_shieldpin = 3;
-const int lateral_servo3_shieldpin = 4;
+const int lateral_servo1_shieldpin = 1;
+const int lateral_servo2_shieldpin = 2;
+const int lateral_servo3_shieldpin = 3;
 
 float throttle = 0.0;
 int throttle_command = 0;
 float first_pitch = 330.0;
+//float first_pitch = 410.0;
+
 float pitch = first_pitch;
 int servo1_command = 1500;
 int servo2_command = 1500;
@@ -40,11 +42,14 @@ int limit_servo_command_value(float value)
 void setup()
 {
   Serial.begin(115200);
-
+  //   ------PWMshield--------
+  pwm.begin();
+  pwm.setOscillatorFrequency(25000000);
+  pwm.setPWMFreq(SERVO_FREQ);
+  Wire.setClock(400000);
   servo1_command = limit_servo_command_value(2000.0 - first_pitch);
   servo2_command = limit_servo_command_value(1000.0 + first_pitch);
   servo3_command = limit_servo_command_value(1000.0 + first_pitch);
-
   pwm.writeMicroseconds(lateral_brushless_shiledpin, 1000.0);
   pwm.writeMicroseconds(lateral_servo1_shieldpin, servo1_command);
   pwm.writeMicroseconds(lateral_servo2_shieldpin, servo2_command);
